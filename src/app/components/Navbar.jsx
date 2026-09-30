@@ -1,16 +1,25 @@
 "use client";
 
 import { useState } from "react";
-import { Link, Button } from "@heroui/react";
-import { authClient, useSession } from "@/lib/auth-client";
-import { signOut } from "better-auth/api";
+import { Link, Button, Spinner } from "@heroui/react";
+import { authClient, signOut, useSession } from "@/lib/auth-client";
+// import { signOut } from "better-auth/api";
 
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const { data: session } = useSession();
+  const { data: session, isPending } = useSession();
 
   console.log("user section in Navber", session);
+
+  if (isPending) {
+    return (
+      <div className="flex flex-col items-center gap-2">
+        <Spinner className="animate-[spin_0.4s_linear_infinite] motion-reduce:animate-none" />
+        <span className="text-xs text-muted">Loading........-</span>
+      </div>
+    );
+  }
 
   const links = (
     <>
@@ -25,28 +34,6 @@ export default function App() {
       <li>
         <Link href="#">Pricing</Link>
       </li>
-
-      <li>
-        <Link href="#" className="block py-2">
-          Features
-        </Link>
-      </li>
-      <li>
-        <Link href="#" className="block py-2 font-medium text-accent">
-          Dashboard
-        </Link>
-      </li>
-      <li>
-        <Link href="#" className="block py-2">
-          Pricing
-        </Link>
-      </li>
-
-      {/* <Link href="#" className="block py-2">
-        Login
-      </Link>
-      <Button className="w-full">Sign Up</Button>
-      </li> */}
     </>
   );
 
@@ -59,8 +46,10 @@ export default function App() {
         </>
       ) : (
         <>
-          <Link href="#">Login</Link>
-          <Button>Sign Up</Button>
+          <Link href="/sign-in">Sign In</Link>
+          <Link href="/sign-up">
+            <Button>Sign Up</Button>
+          </Link>
         </>
       )}
     </>

@@ -5,12 +5,19 @@ import {
   FieldError,
   Form,
   Input,
+  InputGroup,
   Label,
   TextField,
 } from "@heroui/react";
 import { email } from "better-auth";
 import { signIn } from "../../../lib/auth-client";
+
+import { Eye, EyeSlash } from "@gravity-ui/icons";
+import { useState } from "react";
+
 const SingInPage = () => {
+  const [isVisible, setIsVisible] = useState(false);
+
   const onSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -49,11 +56,10 @@ const SingInPage = () => {
           <Input placeholder="john@example.com" />
           <FieldError />
         </TextField>
+
         <TextField
-          isRequired
-          minLength={8}
+          className="w-full max-w-[280px]"
           name="password"
-          type="password"
           validate={(value) => {
             if (value.length < 8) {
               return "Password must be at least 8 characters";
@@ -68,12 +74,33 @@ const SingInPage = () => {
           }}
         >
           <Label>Password</Label>
-          <Input placeholder="Enter your password" />
+          <InputGroup>
+            <InputGroup.Input
+              className="w-full max-w-[280px]"
+              type={isVisible ? "text" : "password"}
+            />
+            <InputGroup.Suffix className="pe-0">
+              <Button
+                isIconOnly
+                aria-label={isVisible ? "Hide password" : "Show password"}
+                size="sm"
+                variant="ghost"
+                onPress={() => setIsVisible(!isVisible)}
+              >
+                {isVisible ? (
+                  <Eye className="size-4" />
+                ) : (
+                  <EyeSlash className="size-4" />
+                )}
+              </Button>
+            </InputGroup.Suffix>
+          </InputGroup>
           <Description>
             Must be at least 8 characters with 1 uppercase and 1 number
           </Description>
           <FieldError />
         </TextField>
+
         <div className="flex gap-2">
           <Button type="submit">
             {/* <Check /> */}
