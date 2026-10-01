@@ -13,13 +13,21 @@ import {
   TextArea,
   TextField,
 } from "@heroui/react";
+import { object } from "better-auth";
+import { updateUser } from "better-auth/api";
 
 export default function ProfilePage() {
-  const  handleUpdateUser = (e) => {
+  const  handleUpdateUser = async(e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    
-    alert("Form submitted successfully!");
+    const userData = Object.fromEntries(formData.entries())
+    // alert("Form submitted successfully!");
+console.log('in the form data', userData)
+
+const resData = await updateUser({
+  name: userData.name
+})
+console.log('after submite user profile', resData)
   };
 
   return (
@@ -57,12 +65,12 @@ export default function ProfilePage() {
           >
           
            
-           
+
             <FieldError />
           </TextField>
         </FieldGroup>
         <Fieldset.Actions>
-          <Button type="submit">
+          <Button type="submit" >
             <FloppyDisk />
             Save changes
           </Button>
