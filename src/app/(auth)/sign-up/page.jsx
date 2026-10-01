@@ -10,6 +10,8 @@ import {
   Label,
   TextField,
 } from "@heroui/react";
+// import { signInEmai } from "better-auth/api";
+import { signIn } from "@/lib/auth-client";
 
 const SingUpPage = () => {
   const onSubmit = async (e) => {
@@ -26,6 +28,21 @@ const SingUpPage = () => {
 
     console.log(resData, error);
   };
+
+  const handleGoogleSingIn = async () => {
+    const resData = await signIn.social({
+      provider: "google",
+    });
+    console.log("after gogle sign in", resData);
+  };
+
+  const handelGithubSingIn = async () => {
+    const rData = await signIn.social({
+      provider: "github",
+    });
+    console.log(rData);
+  };
+
   return (
     <div>
       <h2>Please sing up</h2>
@@ -95,6 +112,16 @@ const SingUpPage = () => {
           </Button>
         </div>
       </Form>
+
+      <p>OR</p>
+      <Button onClick={handleGoogleSingIn}>Sign In with Google</Button>
+
+      <Button
+        className="flex-1 gap-2 items-center mx-3 bg-black "
+        onClick={handelGithubSingIn}
+      >
+        Github
+      </Button>
     </div>
   );
 };

@@ -24,16 +24,22 @@ export default function App() {
   const links = (
     <>
       <li>
-        <Link href="#">Features</Link>
+        <Link href="/services">Services</Link>
       </li>
       <li>
-        <Link href="#" className="font-medium text-accent" aria-current="page">
+        <Link
+          href="/dashboard"
+          className="font-medium text-accent"
+          aria-current="page"
+        >
           Dashboard
         </Link>
       </li>
-      <li>
-        <Link href="#">Pricing</Link>
-      </li>
+      {session?.user && (
+        <li>
+          <Link href="/profile">Profile</Link>
+        </li>
+      )}
     </>
   );
 
@@ -91,7 +97,9 @@ export default function App() {
           </button>
           <div className="flex items-center gap-3">
             {/* <Logo /> */}
-            <p className="font-bold">ACME</p>
+            <Link href="/" className="font-bold">
+              ACME
+            </Link>
           </div>
         </div>
         <ul className="hidden items-center gap-4 md:flex">{links}</ul>
