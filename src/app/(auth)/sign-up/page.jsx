@@ -26,7 +26,7 @@ const SingUpPage = () => {
       password: data.password,
     });
 
-    console.log(resData, error);
+    console.log("after sign Up", resData, error);
   };
 
   const handleGoogleSingIn = async () => {

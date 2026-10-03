@@ -7,6 +7,7 @@ import {
   Input,
   InputGroup,
   Label,
+  Link,
   TextField,
 } from "@heroui/react";
 import { email } from "better-auth";
@@ -111,6 +112,14 @@ const SingInPage = () => {
           </Button>
         </div>
       </Form>
+      <p>
+        <small>
+          Forgot Password?
+          <Link href="/forgot-password" className="text-blue-400 underline">
+            click here
+          </Link>
+        </small>
+      </p>
     </div>
   );
 };
